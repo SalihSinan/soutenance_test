@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soutenance de stage en informatique</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        :fullscreen {
+            background: inherit;
+        }
+
+        :-webkit-full-screen {
+            background: inherit;
+        }
+
+        :-moz-full-screen {
+            background: inherit;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('image/Assurdix.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('votre-image.jpg') center/cover no-repeat;
+            filter: blur(3px);
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .canvas {
+            width: 4000px;
+            height: 3000px;
+            position: absolute;
+            transform: translate(-35%, -30%) scale(0.65);
+            top: 50%;
+            left: 50%;
+            transform-origin: center center;
+            transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .bg-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50px;
+        }
+
+        .shape-1 {
+            width: 800px;
+            height: 600px;
+            background: rgba(200, 200, 200, 0.3);
+            top: 200px;
+            right: 300px;
+            border-radius: 100px;
+            transform: rotate(-15deg);
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(180, 180, 180, 0.2);
+            bottom: 400px;
+            right: 800px;
+            border-radius: 50%;
+        }
+
+        .symbol {
+            position: absolute;
+            font-size: 60px;
+            font-weight: bold;
+            pointer-events: none;
+        }
+
+        .symbol-orange {
+            color: #ff8c00;
+            top: 300px;
+            right: 500px;
+        }
+
+        .symbol-purple {
+            color: #9966cc;
+            top: 200px;
+            right: 200px;
+        }
+
+        .symbol-blue {
+            color: #4da6ff;
+            top: 500px;
+            right: 100px;
+        }
+
+        .symbol-yellow {
+            color: #ffcc00;
+            bottom: 600px;
+            right: 600px;
+        }
+
+        .symbol-pink {
+            color: #ff69b4;
+            bottom: 300px;
+            right: 200px;
+        }
+
+        .main-view {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: block;
+        }
+
+        .main-title {
+            position: absolute;
+            top: 350px;
+            left: 200px;
+            color: #333;
+            font-size: 3.5rem;
+            font-weight: bold;
+            line-height: 1.2;
+            max-width: 750px;
+            background: rgba(160, 160, 160, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px solid rgba(100, 100, 100, 0.3);
+        }
+
+        .main-subtitle {
+            position: absolute;
+            top: 590px;
+            left: 250px;
+            color: #555;
+            font-size: 1.6rem;
+            font-weight: normal;
+            max-width: 650px;
+            background: rgba(160, 160, 160, 0.85);
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid rgba(100, 100, 100, 0.3);
+        }
+
+        .main-blocks-container {
+            position: absolute;
+            top: 300px;
+            left: 1200px;
+            width: 800px;
+            height: 600px;
+        }
+
+        .main-block {
+            position: absolute;
+            background: rgba(160, 160, 160, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #333;
+            border: 2px solid rgba(100, 100, 100, 0.3);
+        }
+
+        .main-block:hover {
+            background: rgba(180, 180, 180, 0.95);
+            transform: scale(1.05);
+        }
+
+        .block-1 {
+            width: 350px;
+            height: 200px;
+            top: 0;
+            left: 0;
+        }
+
+        .large-slide-img {
+            max-width: 300px;
+            max-height: 200px;
+        }
+
+        .block-2 {
+            width: 350px;
+            height: 180px;
+            top: 220px;
+            left: 0;
+        }
+
+        .block-3 {
+            width: 350px;
+            height: 200px;
+            top: 0;
+            right: 0;
+        }
+
+        .main-block h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .main-block p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        .detail-section {
+            position: absolute;
+            width: 3000px;
+            height: 2000px;
+            display: none;
+        }
+
+        .detail-section.active {
+            display: block;
+        }
+
+        .section-1 {
+            top: -625px;
+            left: -800px;
+        }
+
+        .section-2 {
+            top: -400px;
+            left: 200px;
+        }
+
+        .section-3 {
+            top: -460px;
+            left: 1200px;
+        }
+
+        .detail-content {
+            position: absolute;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            top: 200px;
+            left: 200px;
+            max-width: 800px;
+            background: rgba(160, 160, 160, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+            border: 2px solid rgba(100, 100, 100, 0.3);
+        }
+
+        .detail-content.slide-out-up {
+            transform: translateY(-100vh);
+            opacity: 0;
+        }
+
+        .detail-content.slide-in-up {
+            transform: translateY(100vh);
+            opacity: 0;
+        }
+
+        .detail-content.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .detail-content.slide-out-down {
+            transform: translateY(100vh);
+            opacity: 0;
+        }
+
+        .detail-content.slide-in-down {
+            transform: translateY(-100vh);
+            opacity: 0;
+        }
+
+        .detail-content.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .detail-image {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .slide-img {
+            max-width: 400px;
+            max-height: 300px;
+            object-fit: contain;
+            margin: 10px;
+        }
+
+        .slide-images {
+            transition: all 0.5s ease;
+        }
+
+        .slide-images.fade-out {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .detail-image img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .detail-image.multiple img {
+            max-width: 45%;
+            margin: 0 10px;
+            display: inline-block;
+        }
+
+        .detail-title {
+            font-size: 3.5rem;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .detail-text {
+            font-size: 1.6rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            white-space: pre-line;
+        }
+
+        .detail-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .detail-list li {
+            font-size: 1.4rem;
+            color: #666;
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .detail-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #ff8c00;
+            font-weight: bold;
+        }
+
+        .slides-grid {
+            position: absolute;
+            top: 200px;
+            left: 1100px;
+            display: grid;
+            grid-template-columns: repeat(3, 250px);
+            grid-template-rows: repeat(2, 200px);
+            gap: 30px;
+        }
+
+        .slide-preview {
+            background: rgba(160, 160, 160, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-preview.current {
+            border-color: #ff8c00;
+            background: rgba(200, 200, 200, 0.9);
+            transform: scale(1.1);
+        }
+
+        .slide-preview h4 {
+            font-size: 1.2rem;
+            color: #333;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .slide-preview p {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .progress-indicator {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(160, 160, 160, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            color: #333;
+            font-size: 1.2rem;
+            z-index: 1000;
+            font-weight: bold;
+        }
+
+        .fixed-year {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: rgba(160, 160, 160, 0.9);
+            border-radius: 10px;
+            padding: 15px 20px;
+            color: #333;
+            font-size: 1.2rem;
+            font-weight: bold;
+            z-index: 1000;
+            border: 2px solid rgba(100, 100, 100, 0.3);
+        }
+
+        .fixed-logo-assurdix {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            width: 120px;
+            height: auto;
+            z-index: 1000;
+        }
+
+        .fixed-logo-cyu {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 120px;
+            height: auto;
+            z-index: 1000;
+        }
+
+        .fixed-student-info {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(160, 160, 160, 0.9);
+            border-radius: 10px;
+            padding: 15px 20px;
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: bold;
+            z-index: 1000;
+            border: 2px solid rgba(100, 100, 100, 0.3);
+        }
+
+        .detail-image-container {
+            flex: 1 1 300px;
+            min-width: 250px;
+            max-width: 350px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .detail-image-container img {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 700px) {
+            .detail-content-wrapper {
+                flex-direction: column;
+            }
+
+            .detail-image-container {
+                max-width: 100%;
+                min-width: auto;
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fixed-year">L3-I - 2024-2025</div>
+    <img src="image/Assurdix.png" alt="Logo Assurdix" class="fixed-logo-assurdix">
+    <img src="image/Cyu.png" alt="Logo CY Cergy" class="fixed-logo-cyu">
+    <div class="fixed-student-info">Yuksel Sinan</div>
+    <div class="presentation-container">
+        <div class="canvas" id="canvas">
+            <div class="bg-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="symbol symbol-orange">○</div>
+                <div class="symbol symbol-purple">+</div>
+                <div class="symbol symbol-blue">✕</div>
+                <div class="symbol symbol-yellow">○</div>
+                <div class="symbol symbol-pink">♡</div>
+            </div>
+
+            <div class="main-view" id="mainView">
+                <h1 class="main-title">Soutenance de stage Licence Informatique 2024-2025</h1>
+                <p class="main-subtitle">Présentation des missions et compétences acquises</p>
+
+                <div class="main-blocks-container">
+                    <div class="main-block block-1" data-section="1">
+                        <h3>Introduction au stage </h3>
+                        <p>Présentation du contexte, dates, entreprise et poste occupé</p>
+                    </div>
+                    <div class="main-block block-2" data-section="2">
+                        <h3>Bilan et Perspectives</h3>
+                        <p>Compétences acquises et retour d'expérience</p>
+                    </div>
+                    <div class="main-block block-3" data-section="3">
+                        <h3>Contexte et missions</h3>
+                        <p>Détail des tâches réalisées</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-section section-1" id="section1">
+                <div class="detail-content">
+                    <h2 class="detail-title" id="section1Title">Introduction au stage</h2>
+                    <p class="detail-text" id="section1Text">Stage effectué dans le cadre de la Licence 3 Informatique à
+                        CY Cergy, ce projet a permis d'acquérir des compétences pratiques tout en travaillant sur des
+                        projets concrets au sein d'une entreprise dynamique.</p>
+                    <div class="slide-images" id="section1Images"></div>
+                </div>
+                <div class="slides-grid">
+                    <div class="slide-preview current" data-slide="0">
+                        <h4>Présentation du stage</h4>
+                        <p>Contexte général</p>
+                    </div>
+                    <div class="slide-preview" data-slide="1">
+                        <h4>Dates du stage</h4>
+                        <p>Période et durée</p>
+                    </div>
+                    <div class="slide-preview" data-slide="2">
+                        <h4>Sinan Yuksel</h4>
+                        <p>Profil du stagiaire</p>
+                    </div>
+                    <div class="slide-preview" data-slide="3">
+                        <h4>Entreprise: Assurdix</h4>
+                        <p>Présentation société</p>
+                    </div>
+                    <div class="slide-preview" data-slide="4">
+                        <h4>Licence 3 Informatique CY Cergy</h4>
+                        <p>Formation suivie</p>
+                    </div>
+                    <div class="slide-preview" data-slide="5">
+                        <h4>Poste: Développeur Web</h4>
+                        <p>Missions confiées</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-section section-2" id="section2">
+                <div class="detail-content">
+                    <h2 class="detail-title" id="section2Title">Bilan et Perspectives</h2>
+                    <p class="detail-text" id="section2Text">Cette expérience professionnelle a été enrichissante à
+                        plusieurs niveaux, permettant de développer des compétences techniques et humaines essentielles
+                        pour la suite du parcours.</p>
+                    <div class="slide-images" id="section2Images"></div>
+                </div>
+                <div class="slides-grid">
+                    <div class="slide-preview current" data-slide="0">
+                        <h4>Compétences techniques</h4>
+                        <p>Technologies maîtrisées</p>
+                    </div>
+                    <div class="slide-preview" data-slide="1">
+                        <h4>Méthodologies</h4>
+                        <p>Approches de travail</p>
+                    </div>
+                    <div class="slide-preview" data-slide="2">
+                        <h4>Soft skills</h4>
+                        <p>Compétences humaines</p>
+                    </div>
+                    <div class="slide-preview" data-slide="3">
+                        <h4>Difficultés rencontrées</h4>
+                        <p>Défis surmontés</p>
+                    </div>
+                    <div class="slide-preview" data-slide="4">
+                        <h4>Apports du stage</h4>
+                        <p>Bénéfices obtenus</p>
+                    </div>
+                    <div class="slide-preview" data-slide="5">
+                        <h4>Perspectives d'avenir</h4>
+                        <p>Projets futurs</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-section section-3" id="section3">
+                <div class="detail-content">
+                    <h2 class="detail-title" id="section3Title">Contexte et missions</h2>
+                    <p class="detail-text" id="section3Text">Au sein de l'équipe de développement, plusieurs projets ont
+                        été menés à bien, nécessitant une adaptation rapide aux technologies utilisées et aux méthodes
+                        de travail de l'entreprise.</p>
+                    <div class="slide-images" id="section3Images"></div>
+                </div>
+                <div class="slides-grid">
+                    <div class="slide-preview current" data-slide="0">
+                        <h4>Environnement de travail</h4>
+                        <p>Équipe et outils</p>
+                    </div>
+                    <div class="slide-preview" data-slide="1">
+                        <h4>Projet principal</h4>
+                        <p>Application web</p>
+                    </div>
+                    <div class="slide-preview" data-slide="2">
+                        <h4>Technologies utilisées</h4>
+                        <p>Stack technique</p>
+                    </div>
+                    <div class="slide-preview" data-slide="3">
+                        <h4>Réalisations</h4>
+                        <p>Fonctionnalités développées</p>
+                    </div>
+                    <div class="slide-preview" data-slide="4">
+                        <h4>Collaboration</h4>
+                        <p>Travail en équipe</p>
+                    </div>
+                    <div class="slide-preview" data-slide="5">
+                        <h4>Résultats obtenus</h4>
+                        <p>Impact et performance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress-indicator" id="progressIndicator">
+        Yuksel Sinan
+    </div>
+
+
+    <script>
+        let currentState = {
+            view: 'main',
+            section: 0,
+            slide: 0
+        };
+
+        const canvas = document.getElementById('canvas');
+        const progressIndicator = document.getElementById('progressIndicator');
+
+        const slideData = {
+            1: [
+                {
+                    title: "Présentation du stage",
+                    text: "Stage effectué dans le cadre de la Licence 3 Informatique à CY Cergy. J’ai intégré une PME spécialisée en courtage d’assurance pour professionnels et particuliers. Objectif : développer des outils numériques concrets en lien avec la digitalisation de l’entreprise.",
+                    images: ["image/Cyu.png", "image/Assurdix.png"],
+                },
+                {
+                    title: "Dates du stage",
+                    text: "Du 14 avril au 6 juin 2025 – soit 8 semaines en entreprise dans un rythme de 35h/semaine.",
+                    images: ["image/calendar.jpeg"],
+
+                },
+                {
+                    title: "Sinan Yuksel",
+                    text: "Étudiant en L3 Informatique, passionné par le développement web, je souhaitais expérimenter un projet concret en entreprise, et améliorer mes compétences techniques.",
+                    images: ["image/Sinan.png"],
+                },
+                {
+                    title: "Entreprise: Assurdix",
+                    text: "Courtier en assurance fondé en 2010. Spécialiste des solutions sur-mesure pour particuliers et entreprises. Petite équipe d’une vingtaine de personnes, avec un pôle informatique en développement.",
+                    images: ["image/Assurdix.png"],
+
+                },
+                {
+                    title: "Licence 3 Informatique CY Cergy",
+                    text: "Formation généraliste : algorithmique, programmation, base de données, PHP, ...",
+                    images: ["image/Cyu.png"],
+
+                },
+                {
+                    title: "Poste: Développeur Web",
+                    text: "Mission principale : développer des outils automatisés en Symfony pour améliorer les process internes. Rôle autonome mais supervisé par le lead développeur.",
+                    images: ["image/backend.png"],
+                }
+            ],
+            2: [
+                {
+                    title: "Compétences techniques acquises",
+                    text: "Symfony (Mailer, routes, API), gestion d'API (Gemini, Google), automatisation, sécurité des e-mails, templating avec Twig.",
+                    images: ["image/code.png"],
+                },
+                {
+                    title: "Méthodologies",
+                    text: "Suivi hebdomadaire, priorisation des tâches, gestion autonome du temps, adaptation continue.",
+                    images: ["image/to-do.webp"],
+                },
+                {
+                    title: "Soft skills",
+                    text: "Autonomie, communication, esprit d'équipe, résolution de problèmes techniques, gestion du stress.",
+                    images: ["image/teamwork.jpg"],
+                },
+                {
+                    title: "Difficultés rencontrées",
+                    text: "Mailer Symfony (configuration SMTP, test Twig), chatbot Gemini (API, pertinence, prompts), compatibilité navigateurs, responsive mobile.",
+                    images: ["image/warning.webp"],
+                },
+                {
+                    title: "Apports du stage",
+                    text: "Expérience concrète du métier, confiance professionnelle, montée en compétence rapide, intérêt renforcé pour le développement.",
+                    images: ["image/croissance.jpg"],
+                },
+                {
+                    title: "Perspectives d'avenir",
+                    text: "Poursuivre en master, viser un poste de data scientist, ou developpeur ia, continuer à apprendre en entreprise.",
+                    images: ["image/perspective.png"],
+                }
+            ],
+            3: [
+                {
+                    title: "Environnement de travail",
+                    text: "Petite équipe avec un lead développeur (Laurent), une développeuse, et moi. Outils : Symfony, Twig, API, Google Drive, Git.",
+                    images: ["image/rdv.png"],
+                },
+                {
+                    title: "Projet principal",
+                    text: "Système d'envoi d'e-mails automatiques : création de compte, confirmation de devis, onboarding clients. Utilisation de Mailer Symfony + Twig.",
+                    images: ["image/mail.png"],
+                },
+                {
+                    title: "Technologies utilisées",
+                    text: "Symfony, PHP, Twig, API Gemini, automatisation Google Drive, HTML/CSS, responsive design.",
+                    images: ["image/symfony.webp"],
+                },
+                {
+                    title: "Réalisations concrètes",
+                    text: "✔ Système d'e-mails personnalisés\n✔ Intégration d'un chatbot IA via Gemini\n✔ Tri automatique de fichiers devis dans Google Drive",
+                    images: ["image/chatbot.png", "image/bdd.png"],
+                },
+                {
+                    title: "Collaboration en équipe",
+                    text: "Réunions hebdomadaires avec le tuteur, bonne communication avec l'équipe, autonomie dans la gestion des tâches.",
+                    images: ["image/rdv.png"],
+                },
+                {
+                    title: "Résultats obtenus",
+                    text: "Gain de temps sur les process clients, amélioration de l'image de l'entreprise grâce au site et au chatbot. Expérience valorisante pour moi.",
+                    images: ["image/resultat.png"],
+                }
+            ]
+        };
+
+        const viewConfigs = {
+            main: {
+                transform: 'translate(-35%, -30%) scale(0.65)',
+                section: 0,
+                slide: 0
+            },
+
+            section1: {
+                transform: 'translate(-22%, -15%) scale(0.65)',
+                section: 1,
+                maxSlides: 6
+            },
+
+            section2: {
+                transform: 'translate(-38%, -19%) scale(0.65)',
+                section: 2,
+                maxSlides: 6
+            },
+
+            section3: {
+                transform: 'translate(-54%, -18%) scale(0.65)',
+                section: 3,
+                maxSlides: 6
+            }
+        };
+
+        document.querySelectorAll('.main-block').forEach(block => {
+            block.addEventListener('click', function () {
+                const sectionNum = this.getAttribute('data-section');
+                goToSection(parseInt(sectionNum));
+            });
+        });
+
+        document.querySelectorAll('.slide-preview').forEach(preview => {
+            preview.addEventListener('click', function () {
+                const slideNum = parseInt(this.getAttribute('data-slide'));
+                if (currentState.view !== 'main') {
+                    currentState.slide = slideNum;
+                    updateSlideContent();
+                    updateSlideHighlight();
+                    updateProgressIndicator();
+                }
+            });
+        });
+
+        function goToSection(sectionNum) {
+            document.getElementById('mainView').style.display = 'none';
+            document.querySelectorAll('.detail-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(`section${sectionNum}`).classList.add('active');
+
+            currentState.view = `section${sectionNum}`;
+            currentState.section = sectionNum;
+            currentState.slide = 0;
+
+            const config = viewConfigs[currentState.view];
+            canvas.style.transform = config.transform;
+
+            updateSlideContent();
+            updateSlideHighlight();
+            updateProgressIndicator();
+        }
+
+        function goHome() {
+            document.getElementById('mainView').style.display = 'block';
+            document.querySelectorAll('.detail-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            currentState.view = 'main';
+            currentState.section = 0;
+            currentState.slide = 0;
+
+            canvas.style.transform = viewConfigs.main.transform;
+
+            updateProgressIndicator();
+        }
+
+        function centerOnSection(sectionElement) {
+            const canvas = document.querySelector('.canvas');
+            const rect = sectionElement.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            const translateX = (window.innerWidth / 2 - centerX);
+            const translateY = (window.innerHeight / 2 - centerY);
+
+            canvas.style.transform = `translate(${translateX}px, ${translateY}px) scale(1)`;
+        }
+
+
+        function nextSlide() {
+            if (currentState.view === 'main') {
+                goToSection(1);
+            } else {
+                const config = viewConfigs[currentState.view];
+                if (currentState.slide < config.maxSlides - 1) {
+                    currentState.slide++;
+                    updateSlideContent();
+                    updateSlideHighlight();
+                } else {
+                    if (currentState.section < 3) {
+                        goToSection(currentState.section + 1);
+                    } else {
+                        goHome();
+                    }
+                }
+            }
+            updateProgressIndicator();
+        }
+
+        function previousSlide() {
+            if (currentState.view === 'main') {
+                return;
+            } else {
+                if (currentState.slide > 0) {
+                    currentState.slide--;
+                    updateSlideContent();
+                    updateSlideHighlight();
+                } else {
+                    if (currentState.section > 1) {
+                        goToSection(currentState.section - 1);
+                        const config = viewConfigs[currentState.view];
+                        currentState.slide = config.maxSlides - 1;
+                        updateSlideContent();
+                        updateSlideHighlight();
+                    } else {
+                        goHome();
+                    }
+                }
+            }
+            updateProgressIndicator();
+        }
+
+        function updateSlideContent() {
+            if (currentState.view === 'main') return;
+
+            const sectionNum = currentState.section;
+            const slideNum = currentState.slide;
+            const slideInfo = slideData[sectionNum][slideNum];
+
+            const contentElement = document.querySelector(`#section${sectionNum} .detail-content`);
+            const titleElement = document.getElementById(`section${sectionNum}Title`);
+            const textElement = document.getElementById(`section${sectionNum}Text`);
+            const imagesContainer = document.getElementById(`section${sectionNum}Images`);
+
+            contentElement.classList.remove('active', 'slide-in-up');
+            contentElement.classList.add('slide-out-up');
+            imagesContainer.classList.add('fade-out');
+
+            setTimeout(() => {
+                titleElement.textContent = slideInfo.title;
+                textElement.textContent = slideInfo.text;
+
+                if (slideInfo.images && slideInfo.images.length > 0) {
+                    imagesContainer.innerHTML = '';
+                    slideInfo.images.forEach(src => {
+                        const img = document.createElement('img');
+                        img.src = src;
+                        img.alt = slideInfo.title || "Image";
+                        img.classList.add('slide-img');
+                        if (sectionNum === 3) {
+                            img.classList.add('large-slide-img');
+                        }
+                        imagesContainer.appendChild(img);
+                    });
+                } else {
+                    imagesContainer.innerHTML = '';
+                }
+
+                contentElement.classList.remove('slide-out-up');
+                contentElement.classList.add('slide-in-up');
+                imagesContainer.classList.remove('fade-out');
+
+                setTimeout(() => {
+                    contentElement.classList.remove('slide-in-up');
+                    contentElement.classList.add('active');
+                }, 50);
+
+            }, 400);
+        }
+
+        function updateSlideHighlight() {
+            if (currentState.view === 'main') return;
+
+            const currentSection = document.getElementById(`section${currentState.section}`);
+            const previews = currentSection.querySelectorAll('.slide-preview');
+
+            previews.forEach((preview, index) => {
+                preview.classList.toggle('current', index === currentState.slide);
+            });
+        }
+
+        function updateProgressIndicator() {
+            let text = '';
+            if (currentState.view === 'main') {
+                text = 'Vue principale';
+            } else {
+                const sectionNames = ['Yuksel Sinan', 'Introduction', 'Contexte et missions', 'Bilan et Perspective'];
+                text = `${sectionNames[currentState.section]} - ${currentState.slide + 1}/6`;
+            }
+            progressIndicator.textContent = text;
+        }
+
+        document.addEventListener('keydown', function (e) {
+            switch (e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    previousSlide();
+                    break;
+                case 'F11':
+                    e.preventDefault();
+                    if (!document.fullscreenElement) {
+                        document.documentElement.requestFullscreen();
+                    } else {
+                        document.exitFullscreen();
+                    }
+                    break;
+            }
+        });
+
+        updateProgressIndicator();
+
+        document.getElementById('mainView').style.display = 'block';
+        document.querySelectorAll('.detail-section').forEach(section => {
+            section.classList.remove('active');
+        });
+
+        function createFullscreenButton() {
+            const button = document.createElement('button');
+            button.innerHTML = '⛶';
+            button.id = 'fullscreenBtn';
+            button.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 40px;
+        background: rgba(255,255,255,0.9);
+        border: 2px solid #333;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        z-index: 10000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        display: block;
+        transition: all 0.3s ease;
+    `;
+
+            button.title = 'Plein écran (F11)';
+
+            button.onclick = function () {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                }
+            };
+
+            button.onmouseenter = function () {
+                button.style.background = 'rgba(255,255,255,1)';
+                button.style.transform = 'translateX(-50%) scale(1.1)';
+            };
+
+            button.onmouseleave = function () {
+                button.style.background = 'rgba(255,255,255,0.9)';
+                button.style.transform = 'translateX(-50%) scale(1)';
+            };
+
+            document.body.appendChild(button);
+
+            function toggleButtonVisibility() {
+                if (document.fullscreenElement) {
+                    button.style.display = 'none';
+                } else {
+                    button.style.display = 'block';
+                }
+            }
+
+            document.addEventListener('fullscreenchange', toggleButtonVisibility);
+            document.addEventListener('webkitfullscreenchange', toggleButtonVisibility);
+            document.addEventListener('mozfullscreenchange', toggleButtonVisibility);
+
+            toggleButtonVisibility();
+        }
+
+        document.addEventListener('DOMContentLoaded', createFullscreenButton);
+    </script>
+</body>
+
+</html>
