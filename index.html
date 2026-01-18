@@ -688,108 +688,93 @@
         const progressIndicator = document.getElementById('progressIndicator');
 
         const slideData = {
-    // SECTION 1 : INTRODUCTION
-    1: [
-        {
-            title: "Contexte de l'alternance",
-            text: "Poursuite de mon parcours chez Assurdix en Master. Passage d'un rôle d'exécutant (L3) à un rôle de conception et d'architecture logicielle. Objectif : Industrialiser les outils développés.",
-            images: ["image/Assurdix.png", "image/Cyu.png"],
-        },
-        {
-            title: "L'Entreprise : Assurdix",
-            text: "Courtier en assurance en pleine transformation numérique. Gestion de gros volumes de données (plus de 5000 demandes/an).",
-            images: ["image/Assurdix.png"],
-        },
-        {
-            title: "Mon Évolution de Poste",
-            text: "De Développeur Web Junior (Maintenance) à Ingénieur Fullstack & Data. Je suis désormais en charge de l'architecture technique et de la Business Intelligence.",
-            images: ["image/Sinan.png"], // Garde ta photo si tu veux
-        },
-        {
-            title: "Enjeux du Master",
-            text: "Ne plus seulement 'coder des fonctionnalités', mais garantir la scalabilité, la sécurité et la performance des données pour aider la direction à décider.",
-            images: ["image/croissance.jpg"], // Une image générique ou logo master
-        },
-        {
-            title: "L'équipe Technique",
-            text: "Travail en méthode Agile. Collaboration étroite avec le Lead Dev pour la mise en place de nouvelles normes (Docker, CI/CD).",
-            images: ["image/rdv.png"],
-        },
-        {
-            title: "Vue d'ensemble des missions",
-            text: "1. Refonte Architecture (Micro-services)\n2. Gestion de Données complexes (NoSQL)\n3. Intelligence d'affaires (Dashboarding).",
-            images: ["image/backend.png"],
-        }
-    ],
+            // SECTION 1 : INTRODUCTION
+            1: [
+                {
+                    title: "Contexte de l'alternance",
+                    text: "Passage d'un rôle d'exécution (Licence) à un rôle de conception et d'architecture (Master). Objectif : Industrialiser les outils pour supporter la croissance.",
+                    images: ["image/Assurdix.png", "image/Cyu.png"]
+                },
+                {
+                    title: "L'Entreprise : Assurdix",
+                    text: "Courtier en assurance en pleine transformation numérique. Gestion de gros volumes de données (+5000 demandes/an) nécessitant des outils robustes et scalables.",
+                    images: ["image/Assurdix.png"]
+                },
+                {
+                    title: "Mon Évolution de Poste",
+                    text: "De Développeur Web Junior (Maintenance) à Ingénieur Fullstack & Data. Je suis désormais garant de l'architecture technique et de la Business Intelligence.",
+                    images: ["image/Sinan.png"]
+                },
+                {
+                    title: "Enjeux du Master",
+                    text: "Il ne s'agit plus seulement de 'coder', mais de garantir la sécurité, la performance des données (NoSQL) et d'aider la direction à la décision (Data Viz).",
+                    images: []
+                },
+                {
+                    title: "Vue d'ensemble des missions",
+                    text: "1. Refonte Architecture (Micro-services/Docker)\n2. Gestion de Données complexes (MongoDB)\n3. Intelligence d'affaires (Clusters & KPIs).",
+                    images: []
+                }
+            ],
 
-    // SECTION 2 : BILAN & COMPÉTENCES (On inverse pour finir par la technique pure en section 3)
-    2: [
-        {
-            title: "Montée en compétence : DevOps",
-            text: "Passage d'environnements locaux instables à une infrastructure conteneurisée professionnelle. Maîtrise de l'écosystème Docker.",
-            images: ["image/docker.jpg"], // TON IMAGE DOCKER
-        },
-        {
-            title: "Montée en compétence : Data",
-            text: "Compréhension des enjeux de la Big Data à notre échelle. Manipulation de structures JSON complexes et agrégation de données pour les statistiques.",
-            images: ["image/mongodb.jpg"], // TON IMAGE MONGODB
-        },
-        {
-            title: "Gestion de Projet",
-            text: "Capacité à traduire un besoin métier (ex: 'on perd des clients') en solution technique (ex: 'création d'un tunnel de relance automatique').",
-            images: ["image/to-do.webp"],
-        },
-        {
-            title: "Soft Skills & Management",
-            text: "Plus d'autonomie. Force de proposition sur les choix technologiques. Communication directe avec la direction pour présenter les chiffres.",
-            images: ["image/teamwork.jpg"],
-        },
-        {
-            title: "Difficultés surmontées",
-            text: "Complexité de la modélisation NoSQL vs SQL classique. Optimisation des performances des requêtes d'agrégation pour les tableaux de bord.",
-            images: ["image/warning.webp"],
-        },
-        {
-            title: "Sujet de Mémoire / Futur",
-            text: "Vers une approche prédictive ? Utiliser ces données pour anticiper les résiliations ou recommander automatiquement des produits (IA/Machine Learning).",
-            images: ["image/perspective.png"],
-        }
-    ],
+            // SECTION 2 : BILAN & COMPÉTENCES
+            2: [
+                {
+                    title: "Montée en compétence : DevOps",
+                    text: "Passage d'environnements locaux à une infrastructure conteneurisée professionnelle. Maîtrise de l'écosystème Docker pour garantir l'iso-production.",
+                    images: ["image/docker.jpg"]
+                },
+                {
+                    title: "Montée en compétence : Data",
+                    text: "Compréhension des enjeux de la Big Data à notre échelle. Manipulation de structures JSON complexes et agrégation de données pour le reporting.",
+                    images: ["image/mongodb.jpg"]
+                },
+                {
+                    title: "Gestion de Projet",
+                    text: "Capacité à traduire un besoin métier (ex: 'perte de clients') en solution technique (ex: 'tunnel de relance automatique').",
+                    images: []
+                },
+                {
+                    title: "Sujet de Mémoire / Futur",
+                    text: "Vers une approche prédictive ? Utiliser ces clusters de données pour anticiper les résiliations ou recommander automatiquement des produits (IA/Machine Learning).",
+                    images: []
+                }
+            ],
 
-    // SECTION 3 : CONTEXTE & MISSIONS (Le Cœur Technique avec tes images)
-    3: [
-        {
-            title: "Architecture Micro-services",
-            text: "Migration vers Docker. Isolation des services (Nginx, PHP, Mongo). Cela garantit que le code qui marche chez moi marche aussi en production (Isoproduction).",
-            images: ["image/docker.jpg"], // TON IMAGE DOCKER
-        },
-        {
-            title: "Base de données NoSQL",
-            text: "Choix de MongoDB pour gérer la flexibilité des contrats d'assurance. Stockage sous forme d'objets imbriqués (Collaborateur, Compagnie, Infos) plus adapté que le SQL rigide.",
-            images: ["image/mongodb.jpg"], // TON IMAGE CODE JSON
-        },
-        {
-            title: "Performance Commerciale",
-            text: "Développement d'un Dashboard temps réel. Suivi de 5600+ demandes. Analyse du tunnel de conversion (Devis -> Contrats).",
-            images: ["image/dashboard.jpg"], // TON IMAGE DASHBOARD CHIFFRES
-        },
-        {
-            title: "Business Intelligence (BI)",
-            text: "Analyse visuelle des données : Segmentation par âge et géographie. Permet à l'entreprise de cibler ses campagnes marketing (Ex: 70% de conversion sur les 26-35 ans).",
-            images: ["image/stats_graph.jpg"], // TON IMAGE GRAPHIQUES
-        },
-        {
-            title: "Automatisation & UX",
-            text: "Mise en place de 'Cron Jobs' pour analyser les dossiers dormants. Envoi automatique d'emails de relance personnalisés si le devis n'est pas signé après 7 jours.",
-            images: ["image/mail_alert.png"], // TON IMAGE MAIL
-        },
-        {
-            title: "Impact Business",
-            text: "Le système ne sert pas juste à stocker, il travaille pour nous. Les relances automatiques ont augmenté le taux de transformation, et le dashboard permet de piloter l'activité.",
-            images: ["image/resultat.png"],
-        }
-    ]
-};
+            // SECTION 3 : CŒUR TECHNIQUE (IMAGES CLEFS)
+            3: [
+                {
+                    title: "Architecture Micro-services",
+                    text: "Migration vers Docker. Isolation des services (Nginx, PHP, Mongo). Cela garantit la stabilité et facilite le déploiement continu.",
+                    images: ["image/docker.jpg"]
+                },
+                {
+                    title: "Base de données NoSQL",
+                    text: "Choix de MongoDB pour gérer la flexibilité des contrats. Stockage sous forme d'objets imbriqués (Collaborateur, Compagnie, Infos), impossible en SQL rigide.",
+                    images: ["image/mongodb.jpg"]
+                },
+                {
+                    title: "Pilotage de la Performance",
+                    text: "Développement d'un Dashboard temps réel pour suivre les 5649 demandes. Analyse du tunnel de conversion (Devis -> Contrats) pour identifier les points de blocage.",
+                    images: ["image/dashboard.jpg"]
+                },
+                {
+                    title: "Business Intelligence & Clusters",
+                    text: "Analyse avancée : Création de clusters par âge et géographie. On observe ici que le segment 26-35 ans performe à 70%. C'est un outil d'aide à la décision stratégique.",
+                    images: ["image/stats_graph.jpg"]
+                },
+                {
+                    title: "Automatisation Intelligente",
+                    text: "Mise en place de tâches CRON pour analyser les dossiers dormants. Envoi automatique d'emails de relance personnalisés (J+7) pour réactiver les prospects.",
+                    images: ["image/mail_alert.png"]
+                },
+                {
+                    title: "Impact Business",
+                    text: "Le système ne sert pas juste à stocker, il travaille pour l'entreprise. Les relances automatiques et l'analyse des clusters permettent d'augmenter le CA.",
+                    images: ["image/stats_graph.jpg"]
+                }
+            ]
+        };
 
         const viewConfigs = {
             main: {
