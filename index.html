@@ -6,23 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visite d'Entreprise - Master Informatique</title>
     <style>
-        /* --- CSS --- */
+        /* --- CSS (DESIGN PRO ET MODERNE) --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { overflow: hidden; margin: 0; padding: 0; }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f4f4;
-            /* On garde ton image de fond Assurdix */
+            /* Image de fond : Logo Assurdix en filigrane */
             background-image: url('image/Assurdix.png'); 
-            background-position: center; background-repeat: no-repeat; background-size: 40%;
+            background-position: center; background-repeat: no-repeat; background-size: 35%;
             overflow: hidden; margin: 0; padding: 0; height: 100vh;
         }
 
-        /* Voile blanc pour rendre le texte lisible par dessus le logo */
+        /* Voile blanc pour que le texte soit lisible */
         body::after { 
             content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(245, 245, 245, 0.92); z-index: -1; 
+            background: rgba(245, 245, 245, 0.94); z-index: -1; 
         }
 
         .presentation-container { width: 100vw; height: 100vh; position: relative; overflow: hidden; }
@@ -34,12 +34,12 @@
             transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* Formes décoratives */
+        /* Formes décoratives en arrière-plan */
         .bg-shapes { position: absolute; width: 100%; height: 100%; pointer-events: none; }
         .shape-1 { position: absolute; width: 800px; height: 600px; background: rgba(255, 140, 0, 0.05); top: 200px; right: 300px; border-radius: 100px; transform: rotate(-15deg); }
         .shape-2 { position: absolute; width: 500px; height: 500px; background: rgba(77, 166, 255, 0.05); bottom: 300px; right: 900px; border-radius: 50%; }
         
-        /* Vue Principale */
+        /* --- VUE PRINCIPALE (ACCUEIL) --- */
         .main-view { width: 100%; height: 100%; position: relative; display: block; }
         
         .main-title {
@@ -50,11 +50,11 @@
         
         .main-subtitle {
             position: absolute; top: 580px; left: 250px; color: #555; font-size: 1.6rem;
-            max-width: 700px; background: rgba(255, 255, 255, 0.8); padding: 20px 30px; border-radius: 12px;
+            max-width: 700px; background: rgba(255, 255, 255, 0.9); padding: 20px 30px; border-radius: 12px;
             border: 1px solid #ddd;
         }
 
-        /* Blocs de navigation (Les carrés) */
+        /* Les 3 Carrés de Navigation */
         .main-blocks-container { position: absolute; top: 280px; left: 1250px; width: 800px; height: 600px; }
         
         .main-block {
@@ -71,7 +71,7 @@
         .main-block h3 { font-size: 1.6rem; margin-bottom: 10px; font-weight: bold; color: #2c3e50; }
         .main-block p { font-size: 1.1rem; color: #666; }
 
-        /* Sections Détails (Zoom) */
+        /* --- SECTIONS DÉTAILLÉES (ZOOM) --- */
         .detail-section { position: absolute; width: 3000px; height: 2000px; display: none; }
         .detail-section.active { display: block; }
         
@@ -89,9 +89,9 @@
         .detail-content.active { transform: translateY(0); opacity: 1; }
         
         .detail-title { font-size: 2.8rem; color: #2c3e50; margin-bottom: 25px; border-bottom: 2px solid #eee; padding-bottom: 15px; }
-        .detail-text { font-size: 1.6rem; color: #444; line-height: 1.5; min-height: 120px; margin-bottom: 20px; }
+        .detail-text { font-size: 1.6rem; color: #444; line-height: 1.5; min-height: 120px; margin-bottom: 20px; white-space: pre-line; }
         
-        /* Gestion des Images */
+        /* Gestion des Images dans les slides */
         .slide-images { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px; justify-content: center; align-items: center; }
         .slide-img { 
             max-width: 100%; max-height: 350px; border-radius: 12px; 
@@ -100,7 +100,7 @@
         }
         .slide-img:hover { transform: scale(1.02); }
 
-        /* Grille de navigation interne */
+        /* Grille de navigation (Petites cases à droite) */
         .slides-grid {
             position: absolute; top: 200px; left: 1250px;
             display: grid; grid-template-columns: repeat(2, 260px); gap: 20px;
@@ -114,7 +114,7 @@
         .slide-preview h4 { font-size: 1.1rem; margin-bottom: 5px; color: #333; font-weight: 700; }
         .slide-preview p { font-size: 0.9rem; color: #666; }
 
-        /* Infos fixes (Coins) */
+        /* Infos fixes (En haut et en bas) */
         .fixed-info { position: fixed; padding: 12px 25px; background: white; border-radius: 30px; font-weight: bold; color: #333; box-shadow: 0 4px 15px rgba(0,0,0,0.1); z-index: 1000; font-size: 1rem; }
         .fixed-year { top: 30px; left: 30px; border-left: 5px solid #ff8c00; }
         .fixed-student { bottom: 30px; right: 30px; border-right: 5px solid #4da6ff; }
@@ -124,7 +124,7 @@
         @media (max-width: 700px) {
             .main-title { font-size: 2rem; left: 20px; top: 100px; width: 90%; }
             .detail-content { width: 90%; left: 5%; top: 100px; padding: 20px; }
-            .slides-grid { display: none; } /* Cache la grille sur mobile pour simplifier */
+            .slides-grid { display: none; }
         }
     </style>
 </head>
@@ -149,11 +149,11 @@
                 <div class="main-blocks-container">
                     <div class="main-block block-1" data-section="1">
                         <h3>1. Introduction</h3>
-                        <p>Contexte, Entreprise & Évolution du poste</p>
+                        <p>Contexte, Entreprise & Évolution</p>
                     </div>
                     <div class="main-block block-2" data-section="2">
                         <h3>2. Bilan & Avenir</h3>
-                        <p>Compétences, Soft Skills & Mémoire</p>
+                        <p>Compétences, Gestion & Mémoire</p>
                     </div>
                     <div class="main-block block-3" data-section="3">
                         <h3>3. Cœur Technique</h3>
@@ -192,34 +192,34 @@
     </div>
 
     <script>
-        // --- DONNÉES DU MASTER (CORRIGEES) ---
+        // --- 3. DONNÉES FINALES (AUCUN VIDE, TOUT EST REMPLI) ---
         const slideData = {
             // SECTION 1 : INTRODUCTION
             1: [
                 {
                     title: "Contexte de l'alternance",
-                    text: "Poursuite de mon parcours chez Assurdix en Master. Passage d'un rôle d'exécution (Licence) à un rôle de conception et d'architecture. Objectif : Industrialiser les outils pour supporter la croissance.",
+                    text: "Poursuite de mon parcours chez Assurdix en Master. Je passe d'un rôle d'exécution (L3) à un rôle de conception et d'architecture. L'objectif est d'industrialiser les outils pour supporter la croissance.",
                     images: ["image/Assurdix.png", "image/Cyu.png"]
                 },
                 {
                     title: "L'Entreprise : Assurdix",
-                    text: "Courtier en assurance en pleine transformation numérique. Gestion de gros volumes de données (+5000 demandes/an) nécessitant des outils robustes et scalables.",
+                    text: "Courtier en assurance en pleine transformation numérique. Nous gérons de gros volumes de données (+5000 demandes/an) ce qui nécessite des outils robustes.",
                     images: ["image/Assurdix.png"]
                 },
                 {
                     title: "Mon Évolution de Poste",
                     text: "De Développeur Web Junior (Maintenance) à Ingénieur Fullstack & Data. Je suis désormais garant de l'architecture technique et de la Business Intelligence.",
-                    images: ["image/Sinan.png"] // J'ai remis ta photo ici car c'est ton poste
+                    images: ["image/Sinan.png"] 
                 },
                 {
                     title: "Enjeux du Master",
-                    text: "Il ne s'agit plus seulement de 'coder', mais de garantir la sécurité, la performance des données (NoSQL) et d'aider la direction à la décision.",
-                    images: ["image/Assurdix.png"] // Image générique pour combler le vide
+                    text: "Il ne s'agit plus seulement de 'coder', mais de garantir la sécurité, la performance des données (NoSQL) et d'aider la direction à la décision via les KPIs.",
+                    images: ["image/dashboard.jpeg"] // J'ai ajouté le dashboard ici pour montrer "la décision"
                 },
                 {
                     title: "Vue d'ensemble des missions",
                     text: "1. Refonte Architecture (Micro-services/Docker)\n2. Gestion de Données complexes (MongoDB)\n3. Intelligence d'affaires (Clusters & KPIs).",
-                    images: [] // Pas d'image nécessaire, le texte suffit
+                    images: ["image/docker.jpeg"] // J'ai ajouté l'image Docker pour illustrer l'architecture
                 }
             ],
 
@@ -237,17 +237,17 @@
                 },
                 {
                     title: "Gestion de Projet",
-                    text: "Capacité à gérer un projet complet : de la définition du besoin métier (KPIs, Relances) à la mise en production technique.",
-                    images: ["image/dashboard.jpeg"] // J'utilise le dashboard pour illustrer la gestion
+                    text: "Capacité à gérer un projet complet : de la définition du besoin métier (ex: 'besoin de visibilité') à la mise en production du Dashboard.",
+                    images: ["image/dashboard.jpeg"] // Dashboard = Preuve de gestion de projet
                 },
                 {
                     title: "Sujet de Mémoire / Futur",
                     text: "Vers une approche prédictive ? Utiliser les clusters de données actuels pour anticiper les résiliations ou recommander automatiquement des produits (IA/Machine Learning).",
-                    images: ["image/stats_graph.jpeg"] // J'utilise les graphes pour illustrer le futur/analyse
+                    images: ["image/stats_graph.jpeg"] // Graphes = Base pour la future IA
                 }
             ],
 
-            // SECTION 3 : CŒUR TECHNIQUE (IMAGES & TEXTES CORRIGÉS)
+            // SECTION 3 : CŒUR TECHNIQUE (ORDRE LOGIQUE)
             3: [
                 {
                     title: "Architecture Micro-services",
@@ -262,12 +262,12 @@
                 {
                     title: "Pilotage d'Activité (KPIs)",
                     text: "Développement d'un Dashboard de suivi global. Suivi des volumes (5649 devis) et vision temporelle. Permet de piloter l'activité au jour le jour.",
-                    images: ["image/dashboard.jpeg"] // IMAGE GROS CHIFFRES (Pas de cluster ici)
+                    images: ["image/dashboard.jpeg"] // Image "Gros Chiffres"
                 },
                 {
                     title: "Business Intelligence & Clusters",
                     text: "Analyse fine : Création de clusters (Géo x Produit). C'est ici qu'on croise les données pour segmenter le portefeuille et aider à la décision stratégique.",
-                    images: ["image/stats_graph.jpeg"] // IMAGE CAMEMBERTS (Cluster ici)
+                    images: ["image/stats_graph.jpeg"] // Image "Camemberts/Graphes"
                 },
                 {
                     title: "Automatisation Intelligente",
@@ -276,8 +276,8 @@
                 },
                 {
                     title: "Impact Business",
-                    text: "Le système ne sert pas juste à stocker, il travaille pour l'entreprise. L'analyse des données permet d'optimiser les taux de transformation.",
-                    images: ["image/stats_graph.jpeg"] // On remet le graphe pour montrer le résultat/optimisation
+                    text: "Le système ne sert pas juste à stocker, il travaille pour l'entreprise. L'analyse des données permet d'optimiser les taux de transformation et le CA.",
+                    images: ["image/stats_graph.jpeg"] // Rappel du graphe pour conclure sur l'impact
                 }
             ]
         };
