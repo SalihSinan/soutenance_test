@@ -688,106 +688,108 @@
         const progressIndicator = document.getElementById('progressIndicator');
 
         const slideData = {
-            1: [
-                {
-                    title: "Présentation du stage",
-                    text: "Stage effectué dans le cadre de la Licence 3 Informatique à CY Cergy. J’ai intégré une PME spécialisée en courtage d’assurance pour professionnels et particuliers. Objectif : développer des outils numériques concrets en lien avec la digitalisation de l’entreprise.",
-                    images: ["image/Cyu.png", "image/Assurdix.png"],
-                },
-                {
-                    title: "Dates du stage",
-                    text: "Du 14 avril au 6 juin 2025 – soit 8 semaines en entreprise dans un rythme de 35h/semaine.",
-                    images: ["image/calendar.jpeg"],
+    // SECTION 1 : INTRODUCTION
+    1: [
+        {
+            title: "Contexte de l'alternance",
+            text: "Poursuite de mon parcours chez Assurdix en Master. Passage d'un rôle d'exécutant (L3) à un rôle de conception et d'architecture logicielle. Objectif : Industrialiser les outils développés.",
+            images: ["image/Assurdix.png", "image/Cyu.png"],
+        },
+        {
+            title: "L'Entreprise : Assurdix",
+            text: "Courtier en assurance en pleine transformation numérique. Gestion de gros volumes de données (plus de 5000 demandes/an).",
+            images: ["image/Assurdix.png"],
+        },
+        {
+            title: "Mon Évolution de Poste",
+            text: "De Développeur Web Junior (Maintenance) à Ingénieur Fullstack & Data. Je suis désormais en charge de l'architecture technique et de la Business Intelligence.",
+            images: ["image/Sinan.png"], // Garde ta photo si tu veux
+        },
+        {
+            title: "Enjeux du Master",
+            text: "Ne plus seulement 'coder des fonctionnalités', mais garantir la scalabilité, la sécurité et la performance des données pour aider la direction à décider.",
+            images: ["image/croissance.jpg"], // Une image générique ou logo master
+        },
+        {
+            title: "L'équipe Technique",
+            text: "Travail en méthode Agile. Collaboration étroite avec le Lead Dev pour la mise en place de nouvelles normes (Docker, CI/CD).",
+            images: ["image/rdv.png"],
+        },
+        {
+            title: "Vue d'ensemble des missions",
+            text: "1. Refonte Architecture (Micro-services)\n2. Gestion de Données complexes (NoSQL)\n3. Intelligence d'affaires (Dashboarding).",
+            images: ["image/backend.png"],
+        }
+    ],
 
-                },
-                {
-                    title: "Sinan Yuksel",
-                    text: "Étudiant en L3 Informatique, passionné par le développement web, je souhaitais expérimenter un projet concret en entreprise, et améliorer mes compétences techniques.",
-                    images: ["image/Sinan.png"],
-                },
-                {
-                    title: "Entreprise: Assurdix",
-                    text: "Courtier en assurance fondé en 2010. Spécialiste des solutions sur-mesure pour particuliers et entreprises. Petite équipe d’une vingtaine de personnes, avec un pôle informatique en développement.",
-                    images: ["image/Assurdix.png"],
+    // SECTION 2 : BILAN & COMPÉTENCES (On inverse pour finir par la technique pure en section 3)
+    2: [
+        {
+            title: "Montée en compétence : DevOps",
+            text: "Passage d'environnements locaux instables à une infrastructure conteneurisée professionnelle. Maîtrise de l'écosystème Docker.",
+            images: ["image/docker.jpg"], // TON IMAGE DOCKER
+        },
+        {
+            title: "Montée en compétence : Data",
+            text: "Compréhension des enjeux de la Big Data à notre échelle. Manipulation de structures JSON complexes et agrégation de données pour les statistiques.",
+            images: ["image/mongodb.jpg"], // TON IMAGE MONGODB
+        },
+        {
+            title: "Gestion de Projet",
+            text: "Capacité à traduire un besoin métier (ex: 'on perd des clients') en solution technique (ex: 'création d'un tunnel de relance automatique').",
+            images: ["image/to-do.webp"],
+        },
+        {
+            title: "Soft Skills & Management",
+            text: "Plus d'autonomie. Force de proposition sur les choix technologiques. Communication directe avec la direction pour présenter les chiffres.",
+            images: ["image/teamwork.jpg"],
+        },
+        {
+            title: "Difficultés surmontées",
+            text: "Complexité de la modélisation NoSQL vs SQL classique. Optimisation des performances des requêtes d'agrégation pour les tableaux de bord.",
+            images: ["image/warning.webp"],
+        },
+        {
+            title: "Sujet de Mémoire / Futur",
+            text: "Vers une approche prédictive ? Utiliser ces données pour anticiper les résiliations ou recommander automatiquement des produits (IA/Machine Learning).",
+            images: ["image/perspective.png"],
+        }
+    ],
 
-                },
-                {
-                    title: "Licence 3 Informatique CY Cergy",
-                    text: "Formation généraliste : algorithmique, programmation, base de données, PHP, ...",
-                    images: ["image/Cyu.png"],
-
-                },
-                {
-                    title: "Poste: Développeur Web",
-                    text: "Mission principale : développer des outils automatisés en Symfony pour améliorer les process internes. Rôle autonome mais supervisé par le lead développeur.",
-                    images: ["image/backend.png"],
-                }
-            ],
-            2: [
-                {
-                    title: "Compétences techniques acquises",
-                    text: "Symfony (Mailer, routes, API), gestion d'API (Gemini, Google), automatisation, sécurité des e-mails, templating avec Twig.",
-                    images: ["image/code.png"],
-                },
-                {
-                    title: "Méthodologies",
-                    text: "Suivi hebdomadaire, priorisation des tâches, gestion autonome du temps, adaptation continue.",
-                    images: ["image/to-do.webp"],
-                },
-                {
-                    title: "Soft skills",
-                    text: "Autonomie, communication, esprit d'équipe, résolution de problèmes techniques, gestion du stress.",
-                    images: ["image/teamwork.jpg"],
-                },
-                {
-                    title: "Difficultés rencontrées",
-                    text: "Mailer Symfony (configuration SMTP, test Twig), chatbot Gemini (API, pertinence, prompts), compatibilité navigateurs, responsive mobile.",
-                    images: ["image/warning.webp"],
-                },
-                {
-                    title: "Apports du stage",
-                    text: "Expérience concrète du métier, confiance professionnelle, montée en compétence rapide, intérêt renforcé pour le développement.",
-                    images: ["image/croissance.jpg"],
-                },
-                {
-                    title: "Perspectives d'avenir",
-                    text: "Poursuivre en master, viser un poste de data scientist, ou developpeur ia, continuer à apprendre en entreprise.",
-                    images: ["image/perspective.png"],
-                }
-            ],
-            3: [
-                {
-                    title: "Environnement de travail",
-                    text: "Petite équipe avec un lead développeur (Laurent), une développeuse, et moi. Outils : Symfony, Twig, API, Google Drive, Git.",
-                    images: ["image/rdv.png"],
-                },
-                {
-                    title: "Projet principal",
-                    text: "Système d'envoi d'e-mails automatiques : création de compte, confirmation de devis, onboarding clients. Utilisation de Mailer Symfony + Twig.",
-                    images: ["image/mail.png"],
-                },
-                {
-                    title: "Technologies utilisées",
-                    text: "Symfony, PHP, Twig, API Gemini, automatisation Google Drive, HTML/CSS, responsive design.",
-                    images: ["image/symfony.webp"],
-                },
-                {
-                    title: "Réalisations concrètes",
-                    text: "✔ Système d'e-mails personnalisés\n✔ Intégration d'un chatbot IA via Gemini\n✔ Tri automatique de fichiers devis dans Google Drive",
-                    images: ["image/chatbot.png", "image/bdd.png"],
-                },
-                {
-                    title: "Collaboration en équipe",
-                    text: "Réunions hebdomadaires avec le tuteur, bonne communication avec l'équipe, autonomie dans la gestion des tâches.",
-                    images: ["image/rdv.png"],
-                },
-                {
-                    title: "Résultats obtenus",
-                    text: "Gain de temps sur les process clients, amélioration de l'image de l'entreprise grâce au site et au chatbot. Expérience valorisante pour moi.",
-                    images: ["image/resultat.png"],
-                }
-            ]
-        };
+    // SECTION 3 : CONTEXTE & MISSIONS (Le Cœur Technique avec tes images)
+    3: [
+        {
+            title: "Architecture Micro-services",
+            text: "Migration vers Docker. Isolation des services (Nginx, PHP, Mongo). Cela garantit que le code qui marche chez moi marche aussi en production (Isoproduction).",
+            images: ["image/docker.jpg"], // TON IMAGE DOCKER
+        },
+        {
+            title: "Base de données NoSQL",
+            text: "Choix de MongoDB pour gérer la flexibilité des contrats d'assurance. Stockage sous forme d'objets imbriqués (Collaborateur, Compagnie, Infos) plus adapté que le SQL rigide.",
+            images: ["image/mongodb.jpg"], // TON IMAGE CODE JSON
+        },
+        {
+            title: "Performance Commerciale",
+            text: "Développement d'un Dashboard temps réel. Suivi de 5600+ demandes. Analyse du tunnel de conversion (Devis -> Contrats).",
+            images: ["image/dashboard.jpg"], // TON IMAGE DASHBOARD CHIFFRES
+        },
+        {
+            title: "Business Intelligence (BI)",
+            text: "Analyse visuelle des données : Segmentation par âge et géographie. Permet à l'entreprise de cibler ses campagnes marketing (Ex: 70% de conversion sur les 26-35 ans).",
+            images: ["image/stats_graph.jpg"], // TON IMAGE GRAPHIQUES
+        },
+        {
+            title: "Automatisation & UX",
+            text: "Mise en place de 'Cron Jobs' pour analyser les dossiers dormants. Envoi automatique d'emails de relance personnalisés si le devis n'est pas signé après 7 jours.",
+            images: ["image/mail_alert.png"], // TON IMAGE MAIL
+        },
+        {
+            title: "Impact Business",
+            text: "Le système ne sert pas juste à stocker, il travaille pour nous. Les relances automatiques ont augmenté le taux de transformation, et le dashboard permet de piloter l'activité.",
+            images: ["image/resultat.png"],
+        }
+    ]
+};
 
         const viewConfigs = {
             main: {
