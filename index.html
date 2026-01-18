@@ -6,158 +6,191 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visite d'Entreprise - Master Informatique</title>
     <style>
-        /* --- CSS (DESIGN PRO ET MODERNE) --- */
+        /* --- TON DESIGN D'ORIGINE (INTACT) --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { overflow: hidden; margin: 0; padding: 0; }
-        
+        :fullscreen { background: inherit; }
+        :-webkit-full-screen { background: inherit; }
+        :-moz-full-screen { background: inherit; }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f4;
-            /* Image de fond : Logo Assurdix en filigrane */
-            background-image: url('image/Assurdix.png'); 
-            background-position: center; background-repeat: no-repeat; background-size: 35%;
+            font-family: 'Arial', sans-serif;
+            /* Image de fond Assurdix */
+            background-image: url('image/Assurdix.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
             overflow: hidden; margin: 0; padding: 0; height: 100vh;
         }
 
-        /* Voile blanc pour que le texte soit lisible */
-        body::after { 
-            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(245, 245, 245, 0.94); z-index: -1; 
+        /* TON EFFET DE FLOU (REMIS) */
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            /* Astuce : on utilise une couleur de fond semi-transparente pour simuler l'effet sur le logo */
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px); /* Flou moderne */
+            z-index: -2;
+        }
+
+        body::after {
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.1); /* Légère teinte sombre */
+            z-index: -1;
         }
 
         .presentation-container { width: 100vw; height: 100vh; position: relative; overflow: hidden; }
-        
+
         .canvas {
             width: 4000px; height: 3000px; position: absolute;
             transform: translate(-35%, -30%) scale(0.65);
             top: 50%; left: 50%; transform-origin: center center;
-            transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* Formes décoratives en arrière-plan */
         .bg-shapes { position: absolute; width: 100%; height: 100%; pointer-events: none; }
-        .shape-1 { position: absolute; width: 800px; height: 600px; background: rgba(255, 140, 0, 0.05); top: 200px; right: 300px; border-radius: 100px; transform: rotate(-15deg); }
-        .shape-2 { position: absolute; width: 500px; height: 500px; background: rgba(77, 166, 255, 0.05); bottom: 300px; right: 900px; border-radius: 50%; }
-        
-        /* --- VUE PRINCIPALE (ACCUEIL) --- */
+        .shape { position: absolute; border-radius: 50px; }
+        .shape-1 { width: 800px; height: 600px; background: rgba(200, 200, 200, 0.3); top: 200px; right: 300px; border-radius: 100px; transform: rotate(-15deg); }
+        .shape-2 { width: 400px; height: 400px; background: rgba(180, 180, 180, 0.2); bottom: 400px; right: 800px; border-radius: 50%; }
+
+        .symbol { position: absolute; font-size: 60px; font-weight: bold; pointer-events: none; }
+        .symbol-orange { color: #ff8c00; top: 300px; right: 500px; }
+        .symbol-purple { color: #9966cc; top: 200px; right: 200px; }
+        .symbol-blue { color: #4da6ff; top: 500px; right: 100px; }
+        .symbol-yellow { color: #ffcc00; bottom: 600px; right: 600px; }
+        .symbol-pink { color: #ff69b4; bottom: 300px; right: 200px; }
+
         .main-view { width: 100%; height: 100%; position: relative; display: block; }
-        
+
         .main-title {
-            position: absolute; top: 320px; left: 200px; color: #2c3e50; font-size: 3.5rem; font-weight: 800; line-height: 1.2;
-            max-width: 850px; background: white; padding: 40px; border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); border-left: 12px solid #ff8c00;
+            position: absolute; top: 350px; left: 200px; color: #333; font-size: 3.5rem; font-weight: bold; line-height: 1.2;
+            max-width: 750px; background: rgba(160, 160, 160, 0.9); padding: 40px; border-radius: 15px;
+            border: 2px solid rgba(100, 100, 100, 0.3);
         }
-        
+
         .main-subtitle {
-            position: absolute; top: 580px; left: 250px; color: #555; font-size: 1.6rem;
-            max-width: 700px; background: rgba(255, 255, 255, 0.9); padding: 20px 30px; border-radius: 12px;
-            border: 1px solid #ddd;
+            position: absolute; top: 590px; left: 250px; color: #555; font-size: 1.6rem; font-weight: normal;
+            max-width: 650px; background: rgba(160, 160, 160, 0.85); padding: 25px; border-radius: 12px;
+            border: 2px solid rgba(100, 100, 100, 0.3);
         }
 
-        /* Les 3 Carrés de Navigation */
-        .main-blocks-container { position: absolute; top: 280px; left: 1250px; width: 800px; height: 600px; }
-        
+        .main-blocks-container { position: absolute; top: 300px; left: 1200px; width: 800px; height: 600px; }
+
         .main-block {
-            position: absolute; background: white; border-radius: 15px; padding: 35px; cursor: pointer;
-            transition: all 0.3s ease; color: #333; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            display: flex; flex-direction: column; justify-content: center;
+            position: absolute; background: rgba(160, 160, 160, 0.9); border-radius: 15px; padding: 30px;
+            cursor: pointer; transition: all 0.3s ease; color: #333; border: 2px solid rgba(100, 100, 100, 0.3);
         }
-        .main-block:hover { transform: scale(1.03) translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
-        
-        .block-1 { width: 360px; height: 220px; top: 0; left: 0; border-top: 6px solid #ff8c00; }
-        .block-2 { width: 360px; height: 200px; top: 240px; left: 0; border-top: 6px solid #4da6ff; }
-        .block-3 { width: 360px; height: 220px; top: 0; right: -20px; border-top: 6px solid #9966cc; }
-        
-        .main-block h3 { font-size: 1.6rem; margin-bottom: 10px; font-weight: bold; color: #2c3e50; }
-        .main-block p { font-size: 1.1rem; color: #666; }
 
-        /* --- SECTIONS DÉTAILLÉES (ZOOM) --- */
+        .main-block:hover { background: rgba(180, 180, 180, 0.95); transform: scale(1.05); }
+
+        .block-1 { width: 350px; height: 200px; top: 0; left: 0; }
+        .block-2 { width: 350px; height: 180px; top: 220px; left: 0; }
+        .block-3 { width: 350px; height: 200px; top: 0; right: 0; }
+
+        .main-block h3 { font-size: 1.8rem; margin-bottom: 15px; font-weight: bold; color: #333; }
+        .main-block p { font-size: 1.1rem; color: #555; line-height: 1.4; }
+
         .detail-section { position: absolute; width: 3000px; height: 2000px; display: none; }
         .detail-section.active { display: block; }
-        
+
         .section-1 { top: -625px; left: -800px; }
         .section-2 { top: -400px; left: 200px; }
         .section-3 { top: -460px; left: 1200px; }
 
         .detail-content {
-            position: absolute; top: 200px; left: 200px; width: 950px;
-            background: white; padding: 50px; border-radius: 20px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
-            transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
-            opacity: 0; transform: translateY(30px);
+            position: absolute; transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            top: 200px; left: 200px; max-width: 800px;
+            background: rgba(160, 160, 160, 0.9); padding: 40px; border-radius: 15px;
+            border: 2px solid rgba(100, 100, 100, 0.3);
         }
+        
+        /* Tes animations originales */
+        .detail-content.slide-out-up { transform: translateY(-100vh); opacity: 0; }
+        .detail-content.slide-in-up { transform: translateY(100vh); opacity: 0; }
+        .detail-content.slide-out-down { transform: translateY(100vh); opacity: 0; }
+        .detail-content.slide-in-down { transform: translateY(-100vh); opacity: 0; }
         .detail-content.active { transform: translateY(0); opacity: 1; }
-        
-        .detail-title { font-size: 2.8rem; color: #2c3e50; margin-bottom: 25px; border-bottom: 2px solid #eee; padding-bottom: 15px; }
-        .detail-text { font-size: 1.6rem; color: #444; line-height: 1.5; min-height: 120px; margin-bottom: 20px; white-space: pre-line; }
-        
-        /* Gestion des Images dans les slides */
-        .slide-images { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px; justify-content: center; align-items: center; }
-        .slide-img { 
-            max-width: 100%; max-height: 350px; border-radius: 12px; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15); object-fit: contain; 
-            transition: transform 0.3s;
-        }
-        .slide-img:hover { transform: scale(1.02); }
 
-        /* Grille de navigation (Petites cases à droite) */
+        .slide-images { transition: all 0.5s ease; text-align: center; margin-top: 20px;}
+        .slide-images.fade-out { opacity: 0; transform: scale(0.9); }
+        .slide-img { max-width: 100%; max-height: 300px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); object-fit: contain; }
+
+        .detail-title { font-size: 3.5rem; color: #333; font-weight: bold; margin-bottom: 30px; line-height: 1.2; }
+        .detail-text { font-size: 1.6rem; color: #555; line-height: 1.6; margin-bottom: 20px; white-space: pre-line; }
+
         .slides-grid {
-            position: absolute; top: 200px; left: 1250px;
-            display: grid; grid-template-columns: repeat(2, 260px); gap: 20px;
+            position: absolute; top: 200px; left: 1100px; display: grid;
+            grid-template-columns: repeat(3, 250px); grid-template-rows: repeat(2, 200px); gap: 30px;
         }
+
         .slide-preview {
-            background: rgba(255, 255, 255, 0.6); border-radius: 12px; padding: 20px;
-            cursor: pointer; transition: all 0.2s ease; text-align: center; border: 1px solid rgba(0,0,0,0.05);
+            background: rgba(160, 160, 160, 0.8); border-radius: 10px; padding: 20px;
+            border: 3px solid transparent; transition: all 0.3s ease; cursor: pointer;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
-        .slide-preview:hover { background: white; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .slide-preview.current { background: white; border: 2px solid #ff8c00; transform: scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-        .slide-preview h4 { font-size: 1.1rem; margin-bottom: 5px; color: #333; font-weight: 700; }
-        .slide-preview p { font-size: 0.9rem; color: #666; }
 
-        /* Infos fixes (En haut et en bas) */
-        .fixed-info { position: fixed; padding: 12px 25px; background: white; border-radius: 30px; font-weight: bold; color: #333; box-shadow: 0 4px 15px rgba(0,0,0,0.1); z-index: 1000; font-size: 1rem; }
-        .fixed-year { top: 30px; left: 30px; border-left: 5px solid #ff8c00; }
-        .fixed-student { bottom: 30px; right: 30px; border-right: 5px solid #4da6ff; }
-        .progress-indicator { top: 30px; left: 50%; transform: translateX(-50%); color: #666; }
+        .slide-preview.current { border-color: #ff8c00; background: rgba(200, 200, 200, 0.9); transform: scale(1.1); }
+        .slide-preview h4 { font-size: 1.2rem; color: #333; text-align: center; font-weight: bold; }
+        .slide-preview p { font-size: 0.9rem; color: #666; text-align: center; margin-top: 10px; }
 
-        /* Responsive Mobile */
-        @media (max-width: 700px) {
-            .main-title { font-size: 2rem; left: 20px; top: 100px; width: 90%; }
-            .detail-content { width: 90%; left: 5%; top: 100px; padding: 20px; }
-            .slides-grid { display: none; }
+        .progress-indicator {
+            position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(160, 160, 160, 0.9); border-radius: 15px; padding: 20px;
+            color: #333; font-size: 1.2rem; z-index: 1000; font-weight: bold;
+        }
+
+        .fixed-year {
+            position: fixed; top: 30px; left: 30px;
+            background: rgba(160, 160, 160, 0.9); border-radius: 10px; padding: 15px 20px;
+            color: #333; font-size: 1.2rem; font-weight: bold; z-index: 1000;
+            border: 2px solid rgba(100, 100, 100, 0.3);
+        }
+        
+        .fixed-logo-assurdix { position: fixed; top: 30px; right: 30px; width: 120px; height: auto; z-index: 1000; }
+        .fixed-logo-cyu { position: fixed; bottom: 30px; left: 30px; width: 120px; height: auto; z-index: 1000; }
+        
+        .fixed-student-info {
+            position: fixed; bottom: 30px; right: 30px;
+            background: rgba(160, 160, 160, 0.9); border-radius: 10px; padding: 15px 20px;
+            color: #333; font-size: 1.1rem; font-weight: bold; z-index: 1000;
+            border: 2px solid rgba(100, 100, 100, 0.3);
         }
     </style>
 </head>
 
 <body>
-    <div class="fixed-info fixed-year">Master 1 - Alternance 2025-2026</div>
-    <div class="fixed-info progress-indicator" id="progressIndicator">Accueil</div>
-    <div class="fixed-info fixed-student">Yuksel Sinan</div>
-
+    <div class="fixed-year">Master 1 - 2025/2026</div>
+    <img src="image/Assurdix.png" alt="Logo Assurdix" class="fixed-logo-assurdix">
+    <img src="image/Cyu.png" alt="Logo CY Cergy" class="fixed-logo-cyu">
+    <div class="fixed-student-info">Yuksel Sinan</div>
+    
     <div class="presentation-container">
         <div class="canvas" id="canvas">
-            
             <div class="bg-shapes">
-                <div class="shape-1"></div>
-                <div class="shape-2"></div>
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="symbol symbol-orange">○</div>
+                <div class="symbol symbol-purple">+</div>
+                <div class="symbol symbol-blue">✕</div>
+                <div class="symbol symbol-yellow">○</div>
+                <div class="symbol symbol-pink">♡</div>
             </div>
 
             <div class="main-view" id="mainView">
-                <h1 class="main-title">Visite d'Entreprise<br><span style="color:#ff8c00">Master Informatique</span></h1>
-                <p class="main-subtitle">Architecture Fullstack, DevOps & Data Intelligence.</p>
+                <h1 class="main-title">Visite d'Entreprise - Master Informatique</h1>
+                <p class="main-subtitle">Architecture Fullstack, DevOps & Data Intelligence</p>
 
                 <div class="main-blocks-container">
                     <div class="main-block block-1" data-section="1">
-                        <h3>1. Introduction</h3>
+                        <h3>Introduction</h3>
                         <p>Contexte, Entreprise & Évolution</p>
                     </div>
                     <div class="main-block block-2" data-section="2">
-                        <h3>2. Bilan & Avenir</h3>
-                        <p>Compétences, Gestion & Mémoire</p>
+                        <h3>Bilan & Perspectives</h3>
+                        <p>Compétences & Sujet de Mémoire</p>
                     </div>
                     <div class="main-block block-3" data-section="3">
-                        <h3>3. Cœur Technique</h3>
-                        <p>Docker, NoSQL, KPIs & Clusters</p>
+                        <h3>Cœur Technique</h3>
+                        <p>Docker, NoSQL, Clusters & KPIs</p>
                     </div>
                 </div>
             </div>
@@ -168,7 +201,8 @@
                     <p class="detail-text" id="section1Text">Texte</p>
                     <div class="slide-images" id="section1Images"></div>
                 </div>
-                <div class="slides-grid"></div>
+                <div class="slides-grid">
+                     </div>
             </div>
 
             <div class="detail-section section-2" id="section2">
@@ -191,35 +225,53 @@
         </div>
     </div>
 
+    <div class="progress-indicator" id="progressIndicator">
+        Yuksel Sinan
+    </div>
+
     <script>
-        // --- 3. DONNÉES FINALES (AUCUN VIDE, TOUT EST REMPLI) ---
+        let currentState = {
+            view: 'main',
+            section: 0,
+            slide: 0
+        };
+
+        const canvas = document.getElementById('canvas');
+        const progressIndicator = document.getElementById('progressIndicator');
+
+        // --- 3. CONTENU SLIDES MIS A JOUR (AVEC TES IMAGES MAPPÉES) ---
         const slideData = {
             // SECTION 1 : INTRODUCTION
             1: [
                 {
                     title: "Contexte de l'alternance",
-                    text: "Poursuite de mon parcours chez Assurdix en Master. Je passe d'un rôle d'exécution (L3) à un rôle de conception et d'architecture. L'objectif est d'industrialiser les outils pour supporter la croissance.",
+                    text: "Poursuite de mon parcours chez Assurdix en Master. Passage d'un rôle d'exécutant (Licence) à un rôle d'Architecte Logiciel. Objectif : Industrialiser les outils.",
                     images: ["image/Assurdix.png", "image/Cyu.png"]
                 },
                 {
                     title: "L'Entreprise : Assurdix",
-                    text: "Courtier en assurance en pleine transformation numérique. Nous gérons de gros volumes de données (+5000 demandes/an) ce qui nécessite des outils robustes.",
+                    text: "Courtier en assurance en transformation numérique. Gestion de gros volumes de données (+5000 demandes/an) nécessitant des outils robustes.",
                     images: ["image/Assurdix.png"]
                 },
                 {
-                    title: "Mon Évolution de Poste",
-                    text: "De Développeur Web Junior (Maintenance) à Ingénieur Fullstack & Data. Je suis désormais garant de l'architecture technique et de la Business Intelligence.",
-                    images: ["image/Sinan.png"] 
+                    title: "Mon Évolution",
+                    text: "De Développeur Web Junior (Maintenance) à Ingénieur Fullstack & Data. Je suis désormais garant de l'architecture technique et de la BI.",
+                    images: ["image/Sinan.png"]
                 },
                 {
                     title: "Enjeux du Master",
-                    text: "Il ne s'agit plus seulement de 'coder', mais de garantir la sécurité, la performance des données (NoSQL) et d'aider la direction à la décision via les KPIs.",
-                    images: ["image/dashboard.jpeg"] // J'ai ajouté le dashboard ici pour montrer "la décision"
+                    text: "Ne plus seulement 'coder', mais garantir la sécurité, la performance des données (NoSQL) et aider la direction à décider (KPIs).",
+                    images: ["image/dashboard.jpeg"]
                 },
                 {
-                    title: "Vue d'ensemble des missions",
-                    text: "1. Refonte Architecture (Micro-services/Docker)\n2. Gestion de Données complexes (MongoDB)\n3. Intelligence d'affaires (Clusters & KPIs).",
-                    images: ["image/docker.jpeg"] // J'ai ajouté l'image Docker pour illustrer l'architecture
+                    title: "Vue d'ensemble",
+                    text: "1. Refonte Architecture (Docker)\n2. Données complexes (MongoDB)\n3. Business Intelligence (Clusters).",
+                    images: ["image/docker.jpeg"]
+                },
+                 {
+                    title: "L'équipe",
+                    text: "Travail en autonomie supervisée. Collaboration avec le lead dev pour la mise en place des nouveaux standards DevOps.",
+                    images: ["image/rdv.png"] // Mets une image générique si tu n'as pas rdv.png, ou dashboard.jpeg
                 }
             ],
 
@@ -227,171 +279,303 @@
             2: [
                 {
                     title: "Montée en compétence : DevOps",
-                    text: "Passage d'environnements locaux à une infrastructure conteneurisée professionnelle. Maîtrise de l'écosystème Docker pour garantir l'iso-production.",
+                    text: "Passage d'environnements locaux à une infrastructure Docker professionnelle. Garantie de l'iso-production.",
                     images: ["image/docker.jpeg"]
                 },
                 {
                     title: "Montée en compétence : Data",
-                    text: "Compréhension des enjeux de la Big Data à notre échelle. Manipulation de structures JSON complexes et agrégation de données pour le reporting.",
+                    text: "Manipulation de structures JSON complexes et agrégation de données pour le reporting décisionnel.",
                     images: ["image/mongodb.jpeg"]
                 },
                 {
                     title: "Gestion de Projet",
-                    text: "Capacité à gérer un projet complet : de la définition du besoin métier (ex: 'besoin de visibilité') à la mise en production du Dashboard.",
-                    images: ["image/dashboard.jpeg"] // Dashboard = Preuve de gestion de projet
+                    text: "Gestion de bout en bout : Du besoin métier (Suivi des contrats) à la réalisation technique (Dashboard).",
+                    images: ["image/dashboard.jpeg"]
+                },
+                {
+                    title: "Soft Skills",
+                    text: "Autonomie, Force de proposition sur les choix techniques (NoSQL), Communication avec la direction.",
+                    images: ["image/Sinan.png"]
+                },
+                 {
+                    title: "Difficultés",
+                    text: "Complexité des requêtes d'agrégation MongoDB et optimisation des performances du Dashboard.",
+                    images: ["image/mongodb.jpeg"]
                 },
                 {
                     title: "Sujet de Mémoire / Futur",
-                    text: "Vers une approche prédictive ? Utiliser les clusters de données actuels pour anticiper les résiliations ou recommander automatiquement des produits (IA/Machine Learning).",
-                    images: ["image/stats_graph.jpeg"] // Graphes = Base pour la future IA
+                    text: "Vers le prédictif ? Utiliser les clusters actuels pour anticiper les résiliations (IA/Machine Learning).",
+                    images: ["image/stats_graph.jpeg"] // Graphes pour le futur
                 }
             ],
 
-            // SECTION 3 : CŒUR TECHNIQUE (ORDRE LOGIQUE)
+            // SECTION 3 : CŒUR TECHNIQUE
             3: [
                 {
                     title: "Architecture Micro-services",
-                    text: "Migration vers Docker. Isolation des services (Nginx, PHP, Mongo). Cela garantit la stabilité et facilite le déploiement continu.",
+                    text: "Migration vers Docker. Isolation des services (Nginx, PHP, Mongo). Stabilité et déploiement facilité.",
                     images: ["image/docker.jpeg"]
                 },
                 {
                     title: "Base de données NoSQL",
-                    text: "Choix de MongoDB pour gérer la flexibilité des contrats. Stockage sous forme d'objets imbriqués (Collaborateur, Compagnie, Infos), impossible en SQL rigide.",
+                    text: "MongoDB pour gérer la flexibilité des contrats. Objets imbriqués (Collaborateur, Compagnie, Infos).",
                     images: ["image/mongodb.jpeg"]
                 },
                 {
-                    title: "Pilotage d'Activité (KPIs)",
-                    text: "Développement d'un Dashboard de suivi global. Suivi des volumes (5649 devis) et vision temporelle. Permet de piloter l'activité au jour le jour.",
-                    images: ["image/dashboard.jpeg"] // Image "Gros Chiffres"
+                    title: "Pilotage (KPIs)",
+                    text: "Dashboard temps réel. Suivi des volumes (5649 devis). Analyse du tunnel de conversion.",
+                    images: ["image/dashboard.jpeg"] // GROS CHIFFRES
                 },
                 {
-                    title: "Business Intelligence & Clusters",
-                    text: "Analyse fine : Création de clusters (Géo x Produit). C'est ici qu'on croise les données pour segmenter le portefeuille et aider à la décision stratégique.",
-                    images: ["image/stats_graph.jpeg"] // Image "Camemberts/Graphes"
+                    title: "Business Intelligence (Clusters)",
+                    text: "Création de clusters (Géo x Produit). Le segment 26-35 ans performe à 70%. Aide à la décision stratégique.",
+                    images: ["image/stats_graph.jpeg"] // CAMEMBERTS
                 },
                 {
-                    title: "Automatisation Intelligente",
-                    text: "Mise en place de tâches CRON pour analyser les dossiers dormants. Envoi automatique d'emails de relance personnalisés (J+7) pour réactiver les prospects.",
+                    title: "Automatisation",
+                    text: "Cron Jobs : Détection des dossiers dormants et envoi automatique de relances personnalisées (J+7).",
                     images: ["image/mail.png"]
                 },
                 {
                     title: "Impact Business",
-                    text: "Le système ne sert pas juste à stocker, il travaille pour l'entreprise. L'analyse des données permet d'optimiser les taux de transformation et le CA.",
-                    images: ["image/stats_graph.jpeg"] // Rappel du graphe pour conclure sur l'impact
+                    text: "Le système travaille pour l'entreprise. Optimisation des taux de transformation et gain de temps.",
+                    images: ["image/stats_graph.jpeg"]
                 }
             ]
         };
 
-        // --- MOTEUR DE NAVIGATION (Ne change pas) ---
-        let currentState = { view: 'main', section: 0, slide: 0 };
-        const canvas = document.getElementById('canvas');
-        const progressIndicator = document.getElementById('progressIndicator');
         const viewConfigs = {
-            main: { transform: 'translate(-35%, -30%) scale(0.65)' },
-            section1: { transform: 'translate(-22%, -15%) scale(0.65)', section: 1 },
-            section2: { transform: 'translate(-38%, -19%) scale(0.65)', section: 2 },
-            section3: { transform: 'translate(-54%, -18%) scale(0.65)', section: 3 }
+            main: { transform: 'translate(-35%, -30%) scale(0.65)', section: 0, slide: 0 },
+            section1: { transform: 'translate(-22%, -15%) scale(0.65)', section: 1, maxSlides: 6 },
+            section2: { transform: 'translate(-38%, -19%) scale(0.65)', section: 2, maxSlides: 6 },
+            section3: { transform: 'translate(-54%, -18%) scale(0.65)', section: 3, maxSlides: 6 }
         };
 
-        document.querySelectorAll('.main-block').forEach(block => {
-            block.addEventListener('click', function() { goToSection(parseInt(this.dataset.section)); });
-        });
+        // --- TES FONCTIONS ORIGINALES (POUR GARDER LE DESIGN) ---
 
-        function goToSection(num) {
-            document.getElementById('mainView').style.display = 'none';
-            document.querySelectorAll('.detail-section').forEach(s => s.classList.remove('active'));
+        // Génère les petits carrés de prévisualisation
+        function initGrid(sectionNum) {
+            const grid = document.querySelector(`#section${sectionNum} .slides-grid`);
+            grid.innerHTML = ''; // Vide l'ancien contenu
             
-            const sec = document.getElementById(`section${num}`);
-            sec.classList.add('active');
-            
-            currentState.view = `section${num}`;
-            currentState.section = num;
-            currentState.slide = 0;
-            
-            initGrid(num);
-            canvas.style.transform = viewConfigs[`section${num}`].transform;
-            updateContent();
-            updateHighlight();
-        }
-
-        function initGrid(num) {
-            const grid = document.querySelector(`#section${num} .slides-grid`);
-            grid.innerHTML = '';
-            slideData[num].forEach((slide, idx) => {
+            slideData[sectionNum].forEach((slide, index) => {
                 const div = document.createElement('div');
-                div.className = 'slide-preview';
-                div.innerHTML = `<h4>${slide.title}</h4>`;
-                div.onclick = () => { currentState.slide = idx; updateContent(); updateHighlight(); };
+                div.classList.add('slide-preview');
+                if (index === 0) div.classList.add('current');
+                
+                div.innerHTML = `
+                    <h4>${slide.title}</h4>
+                    <p>${slide.text.substring(0, 20)}...</p>
+                `;
+                
+                // Clic sur un carré
+                div.addEventListener('click', function() {
+                    currentState.slide = index;
+                    updateSlideContent();
+                    updateSlideHighlight();
+                    updateProgressIndicator();
+                });
+                
                 grid.appendChild(div);
             });
         }
 
+        document.querySelectorAll('.main-block').forEach(block => {
+            block.addEventListener('click', function () {
+                const sectionNum = parseInt(this.getAttribute('data-section'));
+                initGrid(sectionNum); // On génère la grille au clic
+                goToSection(sectionNum);
+            });
+        });
+
+        function goToSection(sectionNum) {
+            document.getElementById('mainView').style.display = 'none';
+            document.querySelectorAll('.detail-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(`section${sectionNum}`).classList.add('active');
+
+            currentState.view = `section${sectionNum}`;
+            currentState.section = sectionNum;
+            currentState.slide = 0;
+
+            const config = viewConfigs[currentState.view];
+            canvas.style.transform = config.transform;
+
+            updateSlideContent();
+            updateSlideHighlight();
+            updateProgressIndicator();
+        }
+
         function goHome() {
             document.getElementById('mainView').style.display = 'block';
-            document.querySelectorAll('.detail-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.detail-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
             currentState.view = 'main';
+            currentState.section = 0;
+            currentState.slide = 0;
+
             canvas.style.transform = viewConfigs.main.transform;
-            progressIndicator.innerText = "Accueil";
+            updateProgressIndicator();
         }
 
-        function updateContent() {
-            const data = slideData[currentState.section][currentState.slide];
-            const secId = `section${currentState.section}`;
-            const content = document.querySelector(`#${secId} .detail-content`);
+        function nextSlide() {
+            if (currentState.view === 'main') {
+                initGrid(1);
+                goToSection(1);
+            } else {
+                const config = viewConfigs[currentState.view];
+                if (currentState.slide < config.maxSlides - 1) {
+                    currentState.slide++;
+                    updateSlideContent();
+                    updateSlideHighlight();
+                } else {
+                    if (currentState.section < 3) {
+                        initGrid(currentState.section + 1);
+                        goToSection(currentState.section + 1);
+                    } else {
+                        goHome();
+                    }
+                }
+            }
+            updateProgressIndicator();
+        }
+
+        function previousSlide() {
+            if (currentState.view === 'main') return;
             
-            content.classList.remove('active'); 
-            
+            if (currentState.slide > 0) {
+                currentState.slide--;
+                updateSlideContent();
+                updateSlideHighlight();
+            } else {
+                if (currentState.section > 1) {
+                    const prevSection = currentState.section - 1;
+                    initGrid(prevSection);
+                    goToSection(prevSection);
+                    // Aller à la dernière slide de la section précédente
+                    currentState.slide = 5; 
+                    updateSlideContent();
+                    updateSlideHighlight();
+                } else {
+                    goHome();
+                }
+            }
+            updateProgressIndicator();
+        }
+
+        function updateSlideContent() {
+            if (currentState.view === 'main') return;
+
+            const sectionNum = currentState.section;
+            const slideNum = currentState.slide;
+            const slideInfo = slideData[sectionNum][slideNum];
+
+            const contentElement = document.querySelector(`#section${sectionNum} .detail-content`);
+            const titleElement = document.getElementById(`section${sectionNum}Title`);
+            const textElement = document.getElementById(`section${sectionNum}Text`);
+            const imagesContainer = document.getElementById(`section${sectionNum}Images`);
+
+            // Animation Sortie
+            contentElement.classList.remove('active', 'slide-in-up');
+            contentElement.classList.add('slide-out-up');
+            imagesContainer.classList.add('fade-out');
+
             setTimeout(() => {
-                document.getElementById(`${secId}Title`).innerText = data.title;
-                document.getElementById(`${secId}Text`).innerText = data.text;
-                
-                const imgContainer = document.getElementById(`${secId}Images`);
-                imgContainer.innerHTML = '';
-                if(data.images && data.images.length > 0) {
-                    data.images.forEach(src => {
+                // Mise à jour Données
+                titleElement.textContent = slideInfo.title;
+                textElement.textContent = slideInfo.text;
+
+                imagesContainer.innerHTML = '';
+                if (slideInfo.images && slideInfo.images.length > 0) {
+                    slideInfo.images.forEach(src => {
                         const img = document.createElement('img');
                         img.src = src;
-                        img.className = 'slide-img';
-                        img.onerror = function(){ this.style.display = 'none'; };
-                        imgContainer.appendChild(img);
+                        img.classList.add('slide-img');
+                        // Gère les erreurs d'image sans casser le design
+                        img.onerror = function() { this.style.display = "none"; }; 
+                        imagesContainer.appendChild(img);
                     });
                 }
-                content.classList.add('active'); 
-            }, 300);
+
+                // Animation Entrée
+                contentElement.classList.remove('slide-out-up');
+                contentElement.classList.add('slide-in-up');
+                imagesContainer.classList.remove('fade-out');
+
+                setTimeout(() => {
+                    contentElement.classList.remove('slide-in-up');
+                    contentElement.classList.add('active');
+                }, 50);
+
+            }, 400); // Temps de la transition CSS
         }
 
-        function updateHighlight() {
-            document.querySelectorAll(`#section${currentState.section} .slide-preview`).forEach((el, i) => {
-                el.classList.toggle('current', i === currentState.slide);
+        function updateSlideHighlight() {
+            if (currentState.view === 'main') return;
+            const currentSection = document.getElementById(`section${currentState.section}`);
+            const previews = currentSection.querySelectorAll('.slide-preview');
+            previews.forEach((preview, index) => {
+                preview.classList.toggle('current', index === currentState.slide);
             });
-            progressIndicator.innerText = `Partie ${currentState.section} - Slide ${currentState.slide + 1}/${slideData[currentState.section].length}`;
         }
 
-        document.addEventListener('keydown', (e) => {
-            if(currentState.view === 'main') return;
-            const max = slideData[currentState.section].length - 1;
-            
-            if(e.key === 'ArrowRight' || e.key === ' ') {
-                if(currentState.slide < max) { currentState.slide++; updateContent(); updateHighlight(); }
-                else if(currentState.section < 3) { goToSection(currentState.section + 1); }
-                else { goHome(); }
+        function updateProgressIndicator() {
+            let text = '';
+            if (currentState.view === 'main') {
+                text = 'Vue principale';
+            } else {
+                const sectionNames = ['', 'Introduction', 'Bilan', 'Cœur Technique'];
+                text = `${sectionNames[currentState.section]} - Slide ${currentState.slide + 1}/6`;
             }
-            if(e.key === 'ArrowLeft') {
-                if(currentState.slide > 0) { currentState.slide--; updateContent(); updateHighlight(); }
-                else { goHome(); }
+            progressIndicator.textContent = text;
+        }
+
+        // --- TA NAVIGATION CLAVIER (REMISE EXACTEMENT COMME AVANT) ---
+        document.addEventListener('keydown', function (e) {
+            switch (e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    previousSlide();
+                    break;
+                case 'F11':
+                    e.preventDefault();
+                    if (!document.fullscreenElement) {
+                        document.documentElement.requestFullscreen();
+                    } else {
+                        document.exitFullscreen();
+                    }
+                    break;
             }
-            if(e.key === 'Escape') goHome();
         });
+
+        // Initialisation
+        updateProgressIndicator();
+        document.getElementById('mainView').style.display = 'block';
         
-        // Ajout bouton plein écran
-        const fsBtn = document.createElement('button');
-        fsBtn.innerText = '⛶';
-        fsBtn.style.cssText = 'position:fixed; bottom:20px; left:20px; z-index:2000; padding:10px; border-radius:50%; border:none; background:white; box-shadow:0 2px 10px rgba(0,0,0,0.2); cursor:pointer; font-size:1.2rem;';
-        fsBtn.onclick = () => {
-            if(!document.fullscreenElement) document.documentElement.requestFullscreen();
-            else document.exitFullscreen();
-        };
-        document.body.appendChild(fsBtn);
+        // Bouton Fullscreen
+        function createFullscreenButton() {
+            const button = document.createElement('button');
+            button.innerHTML = '⛶';
+            button.style.cssText = `
+                position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+                width: 40px; height: 40px; background: rgba(255,255,255,0.9);
+                border: 2px solid #333; border-radius: 8px; cursor: pointer; z-index: 10000;
+            `;
+            button.onclick = function () {
+                if (document.fullscreenElement) document.exitFullscreen();
+                else document.documentElement.requestFullscreen();
+            };
+            document.body.appendChild(button);
+        }
+        document.addEventListener('DOMContentLoaded', createFullscreenButton);
     </script>
 </body>
 </html>
